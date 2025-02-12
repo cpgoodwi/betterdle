@@ -2,5 +2,7 @@
 A wordle clone that provides a starting word
 
 TODO:
-[ ] - Serve a starting word
+[ ] - Select word at random
+[x] - Serve a starting word
+[ ] - Record history of words
 [ ] - Check correctness on submit
