@@ -1,6 +1,7 @@
 package main
 
 import (
+	"betterdle-backend/data"
 	"betterdle-backend/internal/word"
 	"fmt"
 	"log"
@@ -12,7 +13,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	wordService := word.NewWordService("data/words.txt")
+	wordService := word.NewWordService(data.Words)
 	wordHandler := word.NewWordHandler(*wordService)
 
 	http.HandleFunc("/", helloHandler)

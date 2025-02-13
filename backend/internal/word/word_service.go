@@ -1,41 +1,32 @@
 package word
 
 import (
-	"bufio"
-	"fmt"
-	"os"
+	"math/rand/v2"
 )
 
 type WordService struct {
-	filePath string
+	words     []string
+	today     int
+	yesterday int
 }
 
-func NewWordService(filePath string) *WordService {
+func NewWordService(words []string) *WordService {
+	// TODO: seed random number
+	// TODO: read yesterday from persistance
 	return &WordService{
-		filePath: filePath,
+		words:     words,
+		today:     rand.IntN(len(words)),
+		yesterday: 0,
 	}
 }
 
-func (s *WordService) GetWordFromLine(lineNumber int) (string, error) {
-	file, err := os.Open(s.filePath)
-	if err != nil {
-		return "", fmt.Errorf("failed to open file: %v", err)
-	}
-	defer file.Close()
+func (s *WordService) GetWords() (string, string) {
+	return s.words[s.yesterday], s.words[s.today]
+}
 
-	scanner := bufio.NewScanner(file)
-	currentLine := 1
+func (s *WordService) ChangeWords() (string, string) {
+	s.yesterday = s.today
+	s.today = rand.IntN(len(s.words))
 
-	for scanner.Scan() {
-		if currentLine == lineNumber {
-			return scanner.Text(), nil
-		}
-		currentLine++
-	}
-
-	if err := scanner.Err(); err != nil {
-		return "", fmt.Errorf("error reading file: %v", err)
-	}
-
-	return "", fmt.Errorf("line %d not found", lineNumber)
+	return s.words[s.yesterday], s.words[s.today]
 }
