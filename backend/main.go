@@ -4,6 +4,7 @@ import (
 	"betterdle-server/data"
 	"betterdle-server/word"
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -15,6 +16,7 @@ func main() {
 
 	router.HandleFunc("GET /word", wordHandler.GetWords)
 	router.HandleFunc("PUT /word", wordHandler.ChangeWords)
+	router.HandleFunc("POST /word", wordHandler.CheckGuess)
 
 	server := http.Server{
 		Addr:    ":8080",
@@ -22,5 +24,6 @@ func main() {
 	}
 
 	fmt.Println("Server is starting on port 8080")
-	server.ListenAndServe()
+
+	log.Fatal(server.ListenAndServe())
 }

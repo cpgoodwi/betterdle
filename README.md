@@ -6,6 +6,7 @@ TODO:
 [ ] - Use sqlite to store words
 [ ] - Serve a starting word
 [ ] - Record history of words
-[ ] - Check correctness of word
+[x] - Check correctness of word
+[ ] - Test correctness checker
 [ ] - Implement logging
 [ ] - Implement middleware
